@@ -1,0 +1,15 @@
+
+# 编译产物
+build/
+bin/
+*.exe
+*.out
+*.o
+*.obj
+
+# 操作系统生成的临时文件
+Thumbs.db
+.DS_Store
+
+# 如果不希望共享工作区设置，可取消注释 .vscode/
+#.vscode/
