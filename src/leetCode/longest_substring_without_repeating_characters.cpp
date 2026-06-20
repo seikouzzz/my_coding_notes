@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 
 using namespace std;
 
@@ -7,30 +8,26 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        int n = s.size();
-        if (n == 0 || n == 1) return "01"[n] - '0';
-        int last[128];
-        fill(last, last + 128, -1);
-        int left = 0, right = 0;
-        int res = 0;
+    int lengthOfLongestSubstring(string& s) {
+        unsigned short n = s.size();
+        static unsigned short last[128];
+        memset(last, 0, sizeof(last));
+        unsigned short left = 0, right = 0;
+        unsigned short res = 0;
         while (right < n) {
             unsigned char c = s[right];
-            if (last[c] >= left) {
-                res = max(res, right - left);
-                left = last[c] + 1;
-            }
-            last[c] = right;
+            if ((last[c] != 0) && ((last[c]-1) >= left)) left = last[c];
+            last[c] = right + 1;
             right++;
+            res = res > (right - left) ? res : (right - left);
         }
-        res = max(res, right - left);
         return res;
     }
 };
 
 int main() {
     Solution solution;
-    string s = "abcd";
+    string s = "aab";
     int res = solution.lengthOfLongestSubstring(s);
     cout << res << endl;
     return 0;
